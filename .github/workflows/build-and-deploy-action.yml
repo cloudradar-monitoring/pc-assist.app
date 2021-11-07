@@ -1,5 +1,5 @@
 name: PC-Assist
-on: 
+on:
   push:
     branches:
       - master
@@ -33,5 +33,5 @@ jobs:
             ls -lh ${BUILD}
             test -e ~/.ssh/||mkdir ~/.ssh/
             echo "$SSH_PRIV_KEY">~/.ssh/id_ed25519 && chmod 0400 ~/.ssh/id_ed25519
-            scp -v -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -P ${SSH_PORT} ${BUILD} ${SSH_USER}@${SSH_HOST}:/tmp/
+            scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -P ${SSH_PORT} ${BUILD} ${SSH_USER}@${SSH_HOST}:/tmp/
             cat .github/scripts/remote-deployment.sh|ssh -o StrictHostKeyChecking=no -p ${SSH_PORT} -l ${SSH_USER} ${SSH_HOST} "BUILD=$BUILD bash -e"
