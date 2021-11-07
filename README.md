@@ -41,5 +41,4 @@ curl -Ss https://pc-assist.app/pairing \
 
 ### Rate limit
 You can create a new pairing code every five seconds per remote address.
-If you send faster, HTTP 429 is returned. 
-
+If you send faster, HTTP 429 is returned.
