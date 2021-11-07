@@ -4,11 +4,7 @@ use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
 
-$logDir = match (env('APP_ENV')) {
-    'PRODUCTION' => env('LOG_DIR', '/var/log/') . str_replace(' ', '_', env('APP_NAME', 'php-app')),
-    default => storage_path('logs/'),
-};
-
+$logDir = env('LOG_DIR', storage_path('logs'));
 
 return [
 

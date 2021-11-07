@@ -12,6 +12,8 @@ mkdir /var/www/.pc-assist.app
 tar xzf /tmp/$BUILD -C /var/www/.pc-assist.app/
 
 cd /var/www/.pc-assist.app
+. .env
+test -e $LOG_DIR||mkdir $LOG_DIR
 
 # Activate the new build
 mv /var/www/pc-assist.app /var/www/_pc-assist.app
