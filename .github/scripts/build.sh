@@ -15,8 +15,9 @@ tar --exclude=$BUILD \
     --exclude=./tests  \
     --exclude=.git* \
     --exclude=.vars \
-    --exclude=phpunit.xml \
-    --exclude=composer.* \
+    --exclude=.env.example \
+    --exclude=.styleci.yml \
+    --exclude=.editorconfig \
     --exclude=phpunit.xml \
 -zcf $BUILD .
 ls -lah
