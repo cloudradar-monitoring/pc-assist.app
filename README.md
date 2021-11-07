@@ -14,23 +14,23 @@ With a simple HTTP post request you create a pairing code. The code is valid for
 
 Example using form data:
 ```shell
-curl https://pc-assist.app/pairing \
-  -F url=https:/plexus.example.com
+$ curl https://pc-assist.app/pairing \
+  -F url=https://plexus.example.com
   
 {
   "success": true,
   "code": "tes5il",
   "pairing_url": "https://pc-assist.app/pairing/tes5il",
-  "redirect_url": "https:/plexus.example.com"
+  "redirect_url": "https://plexus.example.com"
 } 
 ```
 
 Example using json:
 ````shell
-curl -Ss https://pc-assist.app/pairing \
-  --data-raw '{"url":"https://plexus.example.com"}' \ 
-  -H "content-type:application/json"
-  
+$ curl -Ss https://pc-assist.app/pairing \
+ -H "content-type:application/json" \
+ --data-raw '{"url":"https://plexus.example.com"}' 
+
 {
   "success": true,
   "code": "mz7rwc",
