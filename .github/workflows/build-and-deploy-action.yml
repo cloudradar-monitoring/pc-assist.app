@@ -1,0 +1,37 @@
+name: PC-Assist
+on: 
+  push:
+    branches:
+      - master
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Env
+        shell: bash
+        run: |
+          ls -la
+          printenv
+      - name: Prepare
+        run: bash .github/scripts/prepare.sh
+      - name: Build
+        shell: bash
+        run: bash .github/scripts/build.sh
+      - name: Deploy
+        shell: bash
+        env:
+          SSH_PRIV_KEY: ${{ secrets.SSH_PRIV_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+        run: |
+            ls -la
+            . .vars
+            printenv
+            ls -lh ${BUILD}
+            test -e ~/.ssh/||mkdir ~/.ssh/
+            echo "$SSH_PRIV_KEY">~/.ssh/id_ed25519 && chmod 0400 ~/.ssh/id_ed25519
+            scp -v -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -P ${SSH_PORT} ${BUILD} ${SSH_USER}@${SSH_HOST}:/tmp/
+            cat .github/scripts/remote-deployment.sh|ssh -o StrictHostKeyChecking=no -p ${SSH_PORT} -l ${SSH_USER} ${SSH_HOST} "BUILD=$BUILD bash -e"
